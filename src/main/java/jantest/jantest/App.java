@@ -1,4 +1,4 @@
-package jantest.jantest;
+package main.java.jantest.jantest;
 
 /**
  * Hello world!

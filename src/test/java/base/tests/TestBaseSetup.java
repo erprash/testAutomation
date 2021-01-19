@@ -1,4 +1,4 @@
-package base.tests;
+package test.java.base.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import base.utility.Reporter;
+import test.java.base.utility.Reporter;
 
 public class TestBaseSetup {
 	

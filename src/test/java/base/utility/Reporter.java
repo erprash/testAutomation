@@ -1,4 +1,4 @@
-package base.utility;
+package test.java.base.utility;
 
 import org.openqa.selenium.TakesScreenshot;
 import java.io.File;

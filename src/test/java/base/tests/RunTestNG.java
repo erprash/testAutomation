@@ -1,4 +1,4 @@
-package base.tests;
+package test.java.base.tests;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import base.utility.Reporter;
+import test.java.base.utility.*;
 public class RunTestNG {
 	
 	

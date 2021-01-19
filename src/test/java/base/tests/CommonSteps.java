@@ -1,4 +1,4 @@
-package base.tests;
+package test.java.base.tests;
 
 public class CommonSteps {
 	TestBaseSetup testBaseSetup ;
