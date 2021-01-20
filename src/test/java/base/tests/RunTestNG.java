@@ -1,103 +1,80 @@
 package test.java.base.tests;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-
 import test.java.base.utility.*;
+
 public class RunTestNG {
-	
-	
-	public ExtentReports report;
-	public ExtentTest test;
-	
-	@BeforeClass
-	public void startClass()
-	{
-		report = new ExtentReports("D:\\Selenium_proj\\jantest\\ExtentReportResults.html");
-		test = report.startTest("ExtentDemo");
-				//reporter = new Reporter();
+
+	public TestBaseSetup testBaseSetup;
+
+	public int i = 0;
+
+	@BeforeSuite
+	public void startsuit() {
+		testBaseSetup = new TestBaseSetup();
 	}
-	
-	
-/*	@BeforeTest
+
+	@BeforeMethod
 	public void beforeTest() {
-		reporter = new Reporter();
-		test = reporter.startTest("ExtentDemo");
-		
-	}*/
-	
-	@Test(priority=1)
-	public void scenario1()
-	{
-		//Assert.assertEquals(10, 20);
-		System.out.println("Test1");
-		test.log(LogStatus.PASS, "Test1 giving proper results");
-		
-		
+		i++;
+		testBaseSetup.reporter.startTest("ExtentDemo" + i);
 	}
-	
-	@Test(priority=3)
-	public void scenario2() throws IOException
-	{
+
+	@Test(priority = 1)
+	public void scenario1() {
+		// Assert.assertEquals(10, 20);
+		System.out.println("Test1 Pass");
+		testBaseSetup.reporter.log("ExtentDemo" + i, "Pass", "Test1 giving proper results");
+	}
+
+	@Test(priority = 3)
+	public void scenario2() throws IOException {
 		WebDriver driver;
-		Reporter repo1 = new Reporter();
+		// Reporter repo1 = new Reporter();
 		System.out.println("Test2");
-		System.setProperty("webdriver.chrome.driver", "D:\\Selenium_proj\\jantest\\src\\test\\resources\\drivers\\chromedriver.exe");
-		driver = new ChromeDriver();
+		TestBaseSetup baseObject = new TestBaseSetup();
+		driver = baseObject.setdriver(0);
 		driver.get("http://google.co.in");
-		if(driver.getTitle().equals("Google"))
-		{
-			test.log(LogStatus.FAIL,test.addScreenCapture(repo1.capture(driver))+ "Test Failed");
+		if (driver.getTitle().equals("Google")) {
+			String path = testBaseSetup.reporter.capture(driver);
+			testBaseSetup.reporter.log("ExtentDemo" + i, "Fail", path + "Test Failed");
 			System.out.println("fail");
+		} else {
+			System.out.println("Not Fail");
+			testBaseSetup.reporter.log("ExtentDemo" + i, "Pass", "Test2 giving proper results");
 		}
-		else
-		{
-				System.out.println("Not Fail");
-		}
-		
-		
 	}
-	
-	@Test(priority=2)
-	public void scenario3()
-	{
-		System.out.println("Test3");
-		test.log(LogStatus.PASS, "Test3 done");
-		
-		
+
+	@Test(priority = 2)
+	public void scenario3() {
+		System.out.println("Test3 Pass");
+		testBaseSetup.reporter.log("ExtentDemo" + i, "Pass", "Test3 Done");
 	}
-	
-/*	@AfterTest
+
+	@AfterMethod
 	public void afterTest() {
-		reporter.endTest("ExtentDemo");
+		testBaseSetup.reporter.endTest("ExtentDemo" + i);
 	}
-	*/
-	
-	@AfterClass
-	public void endClass()
-	{
-		report.endTest(test);
-		report.flush();
-		
-		//method to call jira , attache this report
-		
-		
+
+	@AfterSuite
+	public void endClass() throws Exception {
+		testBaseSetup.reporter.endReport();
+		testBaseSetup.driver.close();
+		// CmdTest.run("taskkill /f /im chromedr*");
+
 	}
-	
-	
+
 }

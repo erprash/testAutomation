@@ -13,22 +13,25 @@ public class TestBaseSetup {
 	WebDriver driver;
 	Reporter reporter;	
 	
+	
 	public TestBaseSetup() {
-		setdriver(2);
 		reporter = new Reporter();
 	}
 	
-	public void setdriver(int id) {
+	
+	public WebDriver setdriver(int id) {
 		if(id==1) {
-			System.setProperty("webdriver.gecko.driver", "D:\\Selenium_proj\\jantest\\src\\test\\resources\\drivers\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability("marionette", true);
 			driver = new FirefoxDriver();
+			return driver;
 		} else {
-			System.setProperty("webdriver.chrome.driver", "D:\\Selenium_proj\\jantest\\src\\test\\resources\\drivers\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 			capabilities.setCapability("marionette", true);
 			driver = new ChromeDriver();
+			return driver;
 		}
 	}
 
